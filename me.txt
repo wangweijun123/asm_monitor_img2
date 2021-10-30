@@ -1,0 +1,16 @@
+1 检测图片大小与imageview 是否匹配
+2 大图监控
+
+第一点:  ImageView 已经被系统替换 AppCompontImageView
+
+利用ClassVisitor 访问AppCompontImageView的时候替换他的父类即可
+
+第一个问题:
+org.gradle.api.GradleException: 'buildSrc' cannot be
+used as a project name as it is a reserved(保留的) name
+这是因为新建java lib 项目在settings.gradle 生成了include ':buildSrc',
+buildSrc是保留名字, 只能用作编译项目，这样方便不用配置classpath
+
+
+
+
