@@ -1,8 +1,12 @@
 1 检测图片大小与imageview 是否匹配
 2 大图监控
 
-第一点:  ImageView 已经被系统替换 AppCompontImageView
+给ImageView设置图片,最终都是调用到这两个方法
+ImageView.setImageDrawable, ImageView.setBackgroundDrawable
+1 第一种思路自定义一个ImageView, 在这里处理就行了,当主线程空闲(1消息队列为空, 2时间还没有到)的时候,获取view的大小与图片计算大小
+  当时大于两倍
 
+第一点:  ImageView 已经被系统替换 AppCompontImageView
 利用ClassVisitor 访问AppCompontImageView的时候替换他的父类即可
 
 第一个问题:
@@ -10,6 +14,18 @@ org.gradle.api.GradleException: 'buildSrc' cannot be
 used as a project name as it is a reserved(保留的) name
 这是因为新建java lib 项目在settings.gradle 生成了include ':buildSrc',
 buildSrc是保留名字, 只能用作编译项目，这样方便不用配置classpath
+
+编写插件流程
+1 项目根目录新建文件夹buildSrc,名字是保留的,特意为编译留下的
+2 写build.gradle文件,引入groovy
+3 编写class实现Plugin
+4 声明插件名字,然后在app模块引用
+
+
+
+
+
+
 
 
 
