@@ -3,6 +3,7 @@ package com.darren.optimize.plugin
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.darren.optimize.visitor.MonitorImageClassVisitor
+import com.darren.optimize.visitor.TraceClassAdapter
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
@@ -87,6 +88,7 @@ class ImageMonitorTransform extends Transform {
                     ClassWriter classWriter = new ClassWriter(0 /* flags */)
                     // 大家以后有需求，或者修改，基本只要改这里就可以了，asm 的常用操作
                     ClassVisitor classVisitor = new MonitorImageClassVisitor(classWriter)
+//                    ClassVisitor classVisitor = new TraceClassAdapter(classWriter)
                     // 下面还可以包多层
                     classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
                     // 重新覆盖写入文件
@@ -138,6 +140,7 @@ class ImageMonitorTransform extends Transform {
                     ClassWriter classWriter = new ClassWriter(0)
                     // 大家以后有需求，或者修改，基本只要改这里就可以了，asm 的常用操作
                     ClassVisitor classVisitor = new MonitorImageClassVisitor(classWriter)
+//                    ClassVisitor classVisitor = new TraceClassAdapter(classWriter)
                     // 下面还可以包多层
                     classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
                     byte[] code = classWriter.toByteArray()

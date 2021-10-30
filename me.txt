@@ -11,6 +11,7 @@ ImageView.setImageDrawable, ImageView.setBackgroundDrawable
 ClassVisitor, MethodVisitor(AdviceAdapter是Method子类)
 访问任何一个类与visitor函数,从这里过滤
 
+AMS 作用java经过javac之后, 访问一个class, 成员，方法, 方法内部的代码都会有回调,所以能操作任何东西
 
 plugin 作用在 java --> class --asm作用在这里---> dex, 从编译任务可以看出来
 
