@@ -108,6 +108,9 @@ public class MonitorImageView extends ImageView implements MessageQueue.IdleHand
         // ......
         // 线上需要搜集代码信息，代码具体在哪里，把信息上报到服务器
         // ......
+
+        Object tag = getTag();// 获取view的url,上报,调用端必须setTag不然获取不到
+
     }
 
     /**

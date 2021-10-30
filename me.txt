@@ -8,6 +8,12 @@ ImageView.setImageDrawable, ImageView.setBackgroundDrawable
 
 第一点:  ImageView 已经被系统替换 AppCompontImageView
 利用ClassVisitor 访问AppCompontImageView的时候替换他的父类即可
+ClassVisitor, MethodVisitor(AdviceAdapter是Method子类)
+访问任何一个类与visitor函数,从这里过滤
+
+
+plugin 作用在 java --> class --asm作用在这里---> dex, 从编译任务可以看出来
+
 
 第一个问题:
 org.gradle.api.GradleException: 'buildSrc' cannot be
