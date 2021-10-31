@@ -10,6 +10,7 @@ import org.apache.commons.io.IOUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.ClassWriter
+import org.objectweb.asm.Opcodes
 
 import java.util.jar.JarEntry
 import java.util.jar.JarFile
@@ -87,8 +88,8 @@ class ImageMonitorTransform extends Transform {
                     // 用来写
                     ClassWriter classWriter = new ClassWriter(0 /* flags */)
                     // 大家以后有需求，或者修改，基本只要改这里就可以了，asm 的常用操作
-                    ClassVisitor classVisitor = new MonitorImageClassVisitor(classWriter)
-//                    ClassVisitor classVisitor = new TraceClassAdapter(classWriter)
+//                    ClassVisitor classVisitor = new MonitorImageClassVisitor(classWriter)
+                    ClassVisitor classVisitor = new TraceClassAdapter(classWriter)
                     // 下面还可以包多层
                     classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
                     // 重新覆盖写入文件
@@ -136,11 +137,16 @@ class ImageMonitorTransform extends Transform {
                 if (filterClass(entryName)) {
                     //class文件处理
                     jarOutputStream.putNextEntry(zipEntry)
+
+                    /*ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+                    ClassVisitor classVisitor = new TraceClassAdapter(Opcodes.ASM5, classWriter);
+                    classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES);*/
+
                     ClassReader classReader = new ClassReader(IOUtils.toByteArray(inputStream))
                     ClassWriter classWriter = new ClassWriter(0)
                     // 大家以后有需求，或者修改，基本只要改这里就可以了，asm 的常用操作
-                    ClassVisitor classVisitor = new MonitorImageClassVisitor(classWriter)
-//                    ClassVisitor classVisitor = new TraceClassAdapter(classWriter)
+//                    ClassVisitor classVisitor = new MonitorImageClassVisitor(classWriter)
+                    ClassVisitor classVisitor = new TraceClassAdapter(classWriter)
                     // 下面还可以包多层
                     classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
                     byte[] code = classWriter.toByteArray()

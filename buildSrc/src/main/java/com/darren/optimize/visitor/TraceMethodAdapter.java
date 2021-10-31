@@ -1,6 +1,7 @@
 package com.darren.optimize.visitor;
 
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.commons.AdviceAdapter;
 
 import static java.lang.System.out;
@@ -23,7 +24,7 @@ public class TraceMethodAdapter extends AdviceAdapter {
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
-        out.println("owner -> "+owner+", name -> "+name+", descriptor -> "+descriptor);
+//        out.println("owner -> "+owner+", name -> "+name+", descriptor -> "+descriptor);
         super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
     }
 
@@ -41,5 +42,14 @@ public class TraceMethodAdapter extends AdviceAdapter {
     @Override
     protected void onMethodExit(int opcode) {
         out.println(className + " " + methodName + " onMethodExit");
+        if(methodName.equals("onCreate") && "com/darren/optimize/day04/MainActivity".equals(className)){
+            System.out.println("modify code########### -> ");
+            // 参数怎么写 (使用字节码工具ASM Bytecode Outline,先把要插入的代码写好，然后copy到插件中来)
+            mv.visitLdcInsn("TAG");
+            mv.visitLdcInsn("enterMethod");
+            // 这里一定是要字节码的方法
+            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "android/util/Log", "e",
+                    "(Ljava/lang/String;Ljava/lang/String;)I", false);
+        }
     }
 }

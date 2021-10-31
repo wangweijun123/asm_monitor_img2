@@ -11,7 +11,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 插入一个方法耗时代码，自己去实现，配合 annotation ,配合配置，自己去实现
-        Log.e("TAG", "enterMethod");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // 背景需求, 为什么插件代码在这里会生效？
