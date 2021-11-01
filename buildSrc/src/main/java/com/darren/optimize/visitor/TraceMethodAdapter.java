@@ -45,7 +45,7 @@ public class TraceMethodAdapter extends AdviceAdapter {
         if(methodName.equals("onCreate") && "com/darren/optimize/day04/MainActivity".equals(className)){
             System.out.println("modify code########### -> ");
             // 参数怎么写 (使用字节码工具ASM Bytecode Outline,先把要插入的代码写好，然后copy到插件中来)
-            mv.visitLdcInsn("TAG");
+            mv.visitLdcInsn("MonitorImageView");
             mv.visitLdcInsn("enterMethod");
             // 这里一定是要字节码的方法
             mv.visitMethodInsn(Opcodes.INVOKESTATIC, "android/util/Log", "e",
