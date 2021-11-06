@@ -41,6 +41,54 @@ gradlew android 插件debug教程
 https://fucknmb.com/2017/07/05/%E5%8F%88%E6%8E%8C%E6%8F%A1%E4%BA%86%E4%B8%80%E9%A1%B9%E6%96%B0%E6%8A%80%E8%83%BD-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95Gradle%E6%8F%92%E4%BB%B6/
 
 
+.method protected onResume()V
+    .registers 3
+
+    const-string v0, "com.sample.systrace.MainActivity.onResume.()V"
+
+    invoke-static {v0}, Lcom/sample/systrace/TraceTag;->i(Ljava/lang/String;)V
+
+    .line 16
+    invoke-super {p0}, Landroid/support/v7/app/AppCompatActivity;->onResume()V
+
+    .line 17
+    const-string v0, "MainActivity"
+
+    const-string v1, "[onResume]"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 18
+    invoke-static {}, Lcom/sample/systrace/TraceTag;->o()V
+
+    return-void
+.end method
+
+
+gradlew :app:clean -Dorg.gradle.debug=true  --no-daemon
+
+
+一下是建立在 为buildSrc项目录下debug 插件代码
+1 配置remote debug
+Editor-config  ---> remote  --->  create configuration  ----> 取名字,其他默认
+
+2 gradlew build -Dorg.gradle.debug=true  --no-daemon  执行任务的时带上两个参数就可以了
+注意任务是什么, gradlew tasks可以看到所有任务名，然后gradlew 任务名执行哈哈哈
+
+
+gradlew build -Dorg.gradle.debug=true  --no-daemon
+
+
+在张绍文 Chapter07-master中
+
+1 配置remote debug
+Editor-config  ---> remote  --->  create configuration  ----> 取名字,其他默认
+use module classpath 选择 Chapter07-master 或者Chapter07-master.systrace-gradle-plugin都可以
+
+2 在\Chapter07-master\systrace-sample-android> 运行 build
+\07\Chapter07-master\systrace-sample-android>gradlew build -Dorg.gradle.debug=true  --no-daemon
+
+3 debug ‘remote’ 这个名字就是上面取的
 
 
 
